@@ -57,15 +57,32 @@ public class Q2 {
 
     public static void main(String[] args) {
         var q2 = new Q2();
-        var l1 = q2.getList(243);
-        var l2 = q2.getList(564);
+        var l1 = q2.getList(9999999);
+        var l2 = q2.getList(9999);
         var result = q2.addTwoNumbers(l1, l2);
         q2.printNode(result);
     }
 
+    /**
+     * 遍历链表，空缺补0，注意进位问题即可
+     */
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         var head = new ListNode(0);
-        sumNode(l1, l2, head);
+        var cursor = head;
+        var carry = 0;
+        while (l1 != null || l2 != null) {
+            int val = (l1 == null ? 0 : l1.val) + (l2 == null ? 0 : l2.val) + carry;
+            carry = 0;
+            if (val >= 10) {
+                val -= 10;
+                carry = 1;
+            }
+            cursor.next = new ListNode(val);
+            cursor = cursor.next;
+            if (l1 != null) l1 = l1.next;
+            if (l2 != null) l2 = l2.next;
+        }
+        if (carry == 1) cursor.next = new ListNode(1);
         return head.next;
     }
 
@@ -79,41 +96,12 @@ public class Q2 {
         return head.next;
     }
 
-    private void appendNode(ListNode head, int val) {
-        var cursor = head;
-        while (cursor.next != null) {
-            cursor = cursor.next;
-        }
-        cursor.next = new ListNode(val);
-    }
-
     private void printNode(ListNode head) {
         System.out.print(head.val + " ");
         if (head.next != null) {
             printNode(head.next);
         }
         System.out.print(head.val);
-    }
-
-    // l1 = [2,4,3,4], l2 = [5,6,4]
-    private int sumNode(ListNode n1, ListNode n2, ListNode head) {
-        int sum, carry = 0;
-        if (n1.next != null && n2.next != null) {
-            carry = sumNode(n1.next, n2.next, head);
-        } else if (n2.next == null && n1.next != null) {
-            carry = sumNode(n1.next, n2, head);
-        } else if (n2.next != null) {
-            carry = sumNode(n1, n2.next, head);
-        }
-        // 未完待续
-
-        sum = n1.val + n2.val + carry;
-        if (sum > 9) {
-            sum -= 10;
-            carry = 1;
-        }
-        appendNode(head, sum);
-        return carry;
     }
 
     static class ListNode {
