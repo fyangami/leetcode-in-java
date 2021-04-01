@@ -51,21 +51,7 @@ public class Q17 {
     }
 
     /**
-     * {
-     *     2: a  b  c
-     *     3: d  e  f
-     *     4: g  h  i
-     *     5: j  k  l
-     *     6: m  n  o
-     *     7: p  q  r  s
-     *     8: t  u  v
-     *     9: w  x  y  z
-     * }
-     * example:
-     *  输入：digits = "23"
-     *  输出：["ad","ae","af","bd","be","bf","cd","ce","cf"]
-     * @param digits
-     * @return
+     * 递归，用递归枚举的子串加上当前字符对应的映射列表等于结果
      */
     public List<String> letterCombinations(String digits) {
         if (digits.length() == 0) {
@@ -93,10 +79,10 @@ public class Q17 {
                     return new LinkedList<>();
             }
         } else {
-            var subList = letterCombinations(digits.substring(1));
-            var enumerate = letterCombinations(digits.substring(0, 1));
+            var subList = letterCombinations(digits.substring(1));  // 获取子串
+            var enumerate = letterCombinations(digits.substring(0, 1));  // 获取当前字符对应的列表
             var list = new LinkedList<String>();
-            enumerate.forEach(ch -> subList.forEach(sub -> list.add(ch + sub)));
+            enumerate.forEach(ch -> subList.forEach(sub -> list.add(ch + sub)));  // 双循环拼接
             return list;
         }
     }
