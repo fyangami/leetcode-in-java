@@ -43,6 +43,9 @@ package xyz.fe1.algorithms.leetcode.hot100;
 
 
 //leetcode submit region begin(Prohibit modification and deletion)
+
+import xyz.fe1.datastruct.ListNode;
+
 /**
  * Definition for singly-linked list.
  * public class ListNode {
@@ -57,10 +60,10 @@ public class Q2 {
 
     public static void main(String[] args) {
         var q2 = new Q2();
-        var l1 = q2.getList(9999999);
-        var l2 = q2.getList(9999);
+        var l1 = ListNode.getList(9999999);
+        var l2 = ListNode.getList(9999);
         var result = q2.addTwoNumbers(l1, l2);
-        q2.printNode(result);
+        ListNode.printNode(result);
     }
 
     /**
@@ -84,38 +87,6 @@ public class Q2 {
         }
         if (carry == 1) cursor.next = new ListNode(1);
         return head.next;
-    }
-
-    private ListNode getList(int val) {
-        var head = new ListNode(0);
-        var cursor = head;
-        for (var c: String.valueOf(val).toCharArray()) {
-            cursor.next = new ListNode(Integer.parseInt(c + ""));
-            cursor = cursor.next;
-        }
-        return head.next;
-    }
-
-    private void printNode(ListNode head) {
-        System.out.print(head.val + " ");
-        if (head.next != null) {
-            printNode(head.next);
-        }
-        System.out.print(head.val);
-    }
-
-    static class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode(int val) {
-            this(val, null);
-        }
-
-        ListNode(int val, ListNode next) {
-            this.val = val;
-            this.next = next;
-        }
     }
 
 }
